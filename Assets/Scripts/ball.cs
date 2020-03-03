@@ -50,7 +50,7 @@ public class ball : MonoBehaviour
 
         if (!(isMoving))
         {
-
+            
             if (Input.GetKey(KeyCode.Alpha1))
             {
                 currentBall = "normal";
@@ -99,7 +99,10 @@ public class ball : MonoBehaviour
         }
         else
         {
+            //print("Made it to the else");
             isMoving = false;
+            //StartCoroutine(stickyBall.Reset(gameObject));
+            //dropBall.Reset(gameObject);
         }
 
 
@@ -151,7 +154,7 @@ public class ball : MonoBehaviour
             yield return new WaitForSeconds(.001f);
         }
         powerChanging = false;
-        print("Hitting ball");
+        StartCoroutine(stickyBall.Reset(gameObject));
         StartCoroutine(hit.hit(currentBall, golfBall, power, gameObject.transform.rotation.x, gameObject.transform.rotation.z));
         //hit.hit(currentBall, golfBall, power, gameObject.transform.rotation.y, gameObject.transform.rotation.x);
     }
