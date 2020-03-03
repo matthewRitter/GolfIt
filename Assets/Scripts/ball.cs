@@ -15,6 +15,11 @@ public class ball : MonoBehaviour
 
     private bool increasing;
     private bool powerChanging;
+    private Club putter;
+
+    public int yAngle;
+    public int xAngle;
+
 
 
 
@@ -23,6 +28,7 @@ public class ball : MonoBehaviour
     void Start()
     {
         golfBall = gameObject.GetComponent<Rigidbody>();
+        putter = new Club();
     }
 
     // Update is called once per frame
@@ -30,6 +36,28 @@ public class ball : MonoBehaviour
     {
         if (!(isMoving))
         {
+
+            if (Input.GetKey("w"))
+            {
+                yAngle++;
+            }
+            if (Input.GetKey("a"))
+            {
+                xAngle--;
+            }
+            if (Input.GetKey("s"))
+            {
+                yAngle++;
+            }
+            if (Input.GetKey("d"))
+            {
+                xAngle--;
+            }
+
+
+
+
+
             if ((Input.GetKeyDown("space")) && !(powerChanging))
             {
                 powerChanging = true;
@@ -56,29 +84,38 @@ public class ball : MonoBehaviour
             {
                 if (power + 1 > maxPower)
                 {
-                    power--;
+                    power-= 5;
                     increasing = false;
                 }
                 else
                 {
-                    power++;
+                    power+= 5;
                 }
             }
             else
             {
                 if (power - 1 < minPower)
                 {
-                    power++;
+                    power+= 5;
                     increasing = true;
                 }
                 else
                 {
-                    power--;
+                    power-= 5;
                 }
             }
-            yield return new WaitForSeconds(.05f);
+            yield return new WaitForSeconds(.001f);
         }
         powerChanging = false;
+        StartCoroutine(hitBall());
+    }
+
+    private IEnumerator hitBall()
+    {
+        Vector3 hitAngle = new Vector3(xAngle, yAngle, 3);
+        print("the golf ball is: " + golfBall);
+        golfBall.AddForce(putter.hit(hitAngle, power));
+        yield return new WaitForSeconds(5f);
     }
 
 
