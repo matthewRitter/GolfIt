@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stickyball : MonoBehaviour
+public class Stickyball
 {
     public void Stick(GameObject ball)
     {

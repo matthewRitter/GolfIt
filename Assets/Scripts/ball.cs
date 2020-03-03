@@ -84,7 +84,7 @@ public class ball : MonoBehaviour
         }
         else
         {
-            if (currentBall.Equals("drop"))
+            if (currentBall.Equals("drop") && !(dropBall.isDropping))
             {
                 if (Input.GetKeyDown("space"))
                 {
@@ -155,6 +155,7 @@ public class ball : MonoBehaviour
         }
         powerChanging = false;
         StartCoroutine(stickyBall.Reset(gameObject));
+        dropBall.Reset(gameObject);
         StartCoroutine(hit.hit(currentBall, golfBall, power, gameObject.transform.rotation.x, gameObject.transform.rotation.z));
         //hit.hit(currentBall, golfBall, power, gameObject.transform.rotation.y, gameObject.transform.rotation.x);
     }
