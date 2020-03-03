@@ -8,4 +8,10 @@ public class Dropball : MonoBehaviour
         Rigidbody golfBall = ball.GetComponent<Rigidbody>();
         golfBall.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
+
+    public void Reset(GameObject ball)
+    {
+        Rigidbody golfBall = ball.GetComponent<Rigidbody>();
+        golfBall.constraints = RigidbodyConstraints.None;
+    }
 }
