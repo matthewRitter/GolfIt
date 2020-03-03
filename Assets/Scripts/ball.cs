@@ -20,6 +20,7 @@ public class ball : MonoBehaviour
 
     hitBall hit;
     Stickyball stickyBall;
+    Dropball dropBall;
 
 
     public float yAngle;
@@ -38,11 +39,15 @@ public class ball : MonoBehaviour
         currentBall = "normal";
         hit = new hitBall();
         stickyBall = new Stickyball();
+        dropBall = new Dropball();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+
         if (!(isMoving))
         {
 
@@ -76,8 +81,31 @@ public class ball : MonoBehaviour
             {
                 powerChanging = false;
             }
-
         }
+        else
+        {
+            if (currentBall.Equals("drop"))
+            {
+                if (Input.GetKeyDown("space"))
+                {
+                    dropBall.Drop(gameObject);
+                }
+            }
+        }
+
+        if (golfBall.velocity != new Vector3(0, 0, 0))
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+
+
+
+
+
     }
 
     
@@ -127,6 +155,8 @@ public class ball : MonoBehaviour
         StartCoroutine(hit.hit(currentBall, golfBall, power, gameObject.transform.rotation.x, gameObject.transform.rotation.z));
         //hit.hit(currentBall, golfBall, power, gameObject.transform.rotation.y, gameObject.transform.rotation.x);
     }
+
+
 
 
 
