@@ -8,6 +8,9 @@ public class Stickyball : MonoBehaviour
     {
         Rigidbody golfBall = ball.GetComponent<Rigidbody>();
         golfBall.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        golfBall.velocity = Vector3.zero;
+        golfBall.angularVelocity = Vector3.zero;
+        golfBall.Sleep();
     }
 
     public IEnumerator Reset(GameObject ball)
