@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Club : MonoBehaviour
+public class Club
 {
-    public Vector3 hit(Vector3 force, int speed){
-        force.Normalize();
-        force *= speed;
-        return force;
+    public Vector3 hit(Rigidbody golfBall, float force){
+        return golfBall.gameObject.transform.forward * force;
     }
 }

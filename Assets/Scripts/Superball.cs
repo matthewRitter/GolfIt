@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Superball : MonoBehaviour
+public class Superball
 {
-    public Vector3 hit(Vector3 force, int speed){
-        force.Normalize();
-        force *= (10 * speed);
-        return force;
+    private float accelerationIncrease = 10f;
+    public Vector3 hit(Rigidbody golfBall, float force){
+        return golfBall.gameObject.transform.forward * force * accelerationIncrease;
     }
 }

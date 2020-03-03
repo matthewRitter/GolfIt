@@ -15,10 +15,17 @@ public class ball : MonoBehaviour
 
     private bool increasing;
     private bool powerChanging;
-    private Club putter;
 
-    public int yAngle;
-    public int xAngle;
+
+
+    hitBall hit;
+    Stickyball stickyBall;
+
+
+    public float yAngle;
+    public float xAngle;
+
+    public string currentBall;
 
 
 
@@ -28,7 +35,9 @@ public class ball : MonoBehaviour
     void Start()
     {
         golfBall = gameObject.GetComponent<Rigidbody>();
-        putter = new Club();
+        currentBall = "normal";
+        hit = new hitBall();
+        stickyBall = new Stickyball();
     }
 
     // Update is called once per frame
@@ -37,21 +46,21 @@ public class ball : MonoBehaviour
         if (!(isMoving))
         {
 
-            if (Input.GetKey("w"))
+            if (Input.GetKey(KeyCode.Alpha1))
             {
-                yAngle++;
+                currentBall = "normal";
             }
-            if (Input.GetKey("a"))
+            if (Input.GetKey(KeyCode.Alpha2))
             {
-                xAngle--;
+                currentBall = "super";
             }
-            if (Input.GetKey("s"))
+            if (Input.GetKey(KeyCode.Alpha3))
             {
-                yAngle++;
+                currentBall = "sticky";
             }
-            if (Input.GetKey("d"))
+            if (Input.GetKey(KeyCode.Alpha4))
             {
-                xAngle--;
+                currentBall = "drop";
             }
 
 
@@ -71,10 +80,17 @@ public class ball : MonoBehaviour
         }
     }
 
-    private void StartCoRoutine(IEnumerator enumerator)
+    
+
+    void OnCollisionEnter(Collision collision)
     {
-        throw new NotImplementedException();
+        if (currentBall.Equals("sticky"))
+        {
+            stickyBall.Stick(gameObject);
+        }
     }
+
+
 
     private IEnumerator changePower()
     {
@@ -107,16 +123,27 @@ public class ball : MonoBehaviour
             yield return new WaitForSeconds(.001f);
         }
         powerChanging = false;
-        StartCoroutine(hitBall());
+        print("Hitting ball");
+        StartCoroutine(hit.hit(currentBall, golfBall, power, gameObject.transform.rotation.x, gameObject.transform.rotation.z));
+        //hit.hit(currentBall, golfBall, power, gameObject.transform.rotation.y, gameObject.transform.rotation.x);
     }
 
-    private IEnumerator hitBall()
-    {
-        Vector3 hitAngle = new Vector3(xAngle, yAngle, 3);
-        print("the golf ball is: " + golfBall);
-        golfBall.AddForce(putter.hit(hitAngle, power));
-        yield return new WaitForSeconds(5f);
-    }
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
 
 
 
