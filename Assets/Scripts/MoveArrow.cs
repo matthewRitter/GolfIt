@@ -8,7 +8,7 @@ public class MoveArrow : MonoBehaviour
     public float xAngle;
     public float yAngle;
     public GameObject golfBall;
-    public Rigidbody ball;
+    private Rigidbody ball;
     public bool firstRun = true;
 
 
